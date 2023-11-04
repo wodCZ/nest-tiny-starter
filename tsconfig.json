@@ -14,6 +14,7 @@
     "baseUrl": "./",
     "skipLibCheck": true,
     "strict": true,
-    "allowJs": true
+    "allowJs": true,
+    "preserveWatchOutput": true
   }
 }
