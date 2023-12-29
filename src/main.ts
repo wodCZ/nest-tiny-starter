@@ -1,17 +1,55 @@
 import { NestFactory } from "@nestjs/core";
-import { Controller, Get, Module } from "@nestjs/common";
+import { Controller, Get, Inject, Injectable, Module } from "@nestjs/common";
+import { CACHE_MANAGER, CacheModule } from "@nestjs/cache-manager";
+import { Cache } from "cache-manager";
 
-@Controller()
-class StatusController {
-  @Get("/status")
-  status() {
-    return {
-      status: "ok",
-    };
+@Injectable()
+export class myClass {
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+
+  async setLocalCache(keyName: string, data: any) {
+    try {
+      const myObj = {
+        data,
+        timestamp: Date.now(),
+      };
+      const stringData = JSON.stringify(myObj);
+      this.cacheManager.set(keyName, stringData, 14400000);
+      console.log(await this.cacheManager.get(keyName));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getLocalCache(keyName: string) {
+    try {
+      const localRate = await this.cacheManager.get<string>(keyName);
+      console.log(localRate);
+      return localRate ? JSON.parse(localRate) : null;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
-@Module({ controllers: [StatusController] })
+@Controller()
+class TestController {
+  constructor(private readonly myClass: myClass) {}
+
+  @Get("/test")
+  async test() {
+    this.myClass.setLocalCache("test", "test");
+    setInterval(() => {
+      this.myClass.getLocalCache("test");
+    }, 1000);
+  }
+}
+
+@Module({
+  controllers: [TestController],
+  imports: [CacheModule.register()],
+  providers: [myClass],
+})
 class AppModule {}
 
 async function bootstrap() {
