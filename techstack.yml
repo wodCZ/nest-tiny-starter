@@ -2,7 +2,7 @@ repo_name: wodCZ/nest-tiny-starter
 report_id: 76155fec0f9c7352d41d34b708253428
 version: 0.1
 repo_type: Public
-timestamp: '2024-02-01T12:26:56+00:00'
+timestamp: '2024-02-29T19:49:06+00:00'
 requested_by: wodCZ
 provider: github
 branch: master
@@ -95,7 +95,7 @@ tools:
   detection_source_url: https://github.com/wodCZ/nest-tiny-starter
   detection_source: Repo Metadata
 - name: Prettier
-  description: 'Prettier is an opinionated code formatter. '
+  description: Prettier is an opinionated code formatter.
   website_url: https://prettier.io/
   version: 3.0.3
   license: MIT
