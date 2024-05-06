@@ -1,19 +1,20 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "preserve",
+    "noEmit": true,
     "lib": ["ES2022"],
-    "declaration": true,
-    "removeComments": true,
+    "allowJs": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "target": "es2022",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "strict": true,
-    "allowJs": true
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true
   }
 }
