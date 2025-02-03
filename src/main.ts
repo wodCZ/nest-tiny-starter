@@ -1,13 +1,11 @@
-import { NestFactory } from "@nestjs/core";
-import { Controller, Get, Module } from "@nestjs/common";
+import { ConsoleLogger, Controller, Get, Module } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 
 @Controller()
 class StatusController {
-  @Get("/status")
+  @Get('/status')
   status() {
-    return {
-      status: "ok",
-    };
+    return { status: 'ok' };
   }
 }
 
@@ -15,7 +13,9 @@ class StatusController {
 class AppModule {}
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new ConsoleLogger({ json: true, colors: true }),
+  });
   await app.listen(3000);
 }
 
